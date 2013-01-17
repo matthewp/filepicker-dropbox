@@ -1,0 +1,22 @@
+{
+  "name": "filepicker-dropbox",
+  "repo": "matthewp/filepicker-dropbox",
+  "description": "Filepicker for Dropbox",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+	"manuelstofer/each": "*",
+	"component/emitter": "*",
+	"component/inherit": "*",
+	"matthewp/text": "*",
+	"matthewp/dropbox-component": "*"
+  },
+  "development": {},
+  "scripts": [
+    "index.js"
+  ],
+  "paths": [".."],
+  "local": [
+	"filepicker"
+  ]
+}

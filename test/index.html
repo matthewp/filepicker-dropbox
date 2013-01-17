@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>filepicker-dropbox test</title>
+	  <link rel="stylesheet" href="../build/build.css" type="text/css" />
+  </head>
+  <body>
+    <label for="api-key">Api key</label>
+    <input type="text" id="api-key" name="api-key" />
+    <a id="open-file" href="#">Toggle fp</a>
+    
+    <script src="../build/build.js"></script>
+	<script>
+	  var FilePicker = new require('filepicker-dropbox');
+
+	  document.getElementById('open-file').onclick = function (e) {
+	    e.preventDefault();
+	    var apiKey = document.getElementById('api-key').value;
+	    var fp = new FilePicker(apiKey);
+	    fp.toggle();
+	  };
+	</script>  
+  </body>
+</html>
