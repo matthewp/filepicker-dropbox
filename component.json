@@ -5,18 +5,12 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-	"manuelstofer/each": "*",
 	"component/emitter": "*",
-	"component/inherit": "*",
-	"matthewp/text": "*",
+	"component/map": "*",
 	"matthewp/dropbox-component": "*"
   },
   "development": {},
   "scripts": [
     "index.js"
-  ],
-  "paths": [".."],
-  "local": [
-	"filepicker"
   ]
 }
