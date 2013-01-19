@@ -6,7 +6,7 @@ function DirectoryEntry(entry, engine) {
 }
 
 DirectoryEntry.prototype.read = function(callback) {
-
+  this.engine.fetchFile(this.path, callback);
 };
 
 module.exports = DirectoryEntry;
