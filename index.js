@@ -3,7 +3,10 @@ var DirectoryEntry = require('./directory_entry'),
     Emitter = require('emitter'),
     map = require('map');
 
+var slice = Array.prototype.slice;
+
 function DropboxEngine(apiKey) {
+  this.name = 'Dropbox';
   this.client = new Dropbox.Client({ key: apiKey });
   this.client.authDriver(new Dropbox.Drivers.Redirect({ rememberUser: true }));
 }
@@ -16,18 +19,39 @@ DropboxEngine.prototype.auth = function(callback) {
 
 DropboxEngine.prototype.fetchDir = function (path, callback) {
   var self = this;
-  this.client.readdir(dir, this.reportErrors(function (entries, dirStat, entryStats) {
-    var results = map(entryStats, function(entry) {
-      return new DirectoryEntry(entry);
-    });
-    callback(results);
-  }));
+  this.auth(function() {
+    self.client.readdir(path, self.reportErrors(function (entries, dirStat, entryStats) {
+      var results = map(entryStats, function(entry) {
+        return new DirectoryEntry(entry, self);
+      });
+      callback(results);
+    }));
+  });
 };
 
+DropboxEngine.prototype.fetchFile = function(path, callback) {
+  var self = this;
+  this.auth(function() {
+    self.client.onXhr.addListener(function(dbXhr) {
+      cbXhr.xhr.onprogress = function(e) {
+        var loaded = e.loaded, total = e.total;
+        self.emit('progress', {
+          loaded: loaded, total: total
+        });
+      };
+    });
+
+    self.client.readFile(path, self.reportErrors(function(data) {
+     callback(data);
+    }));
+  });
+}
+
 DropboxEngine.prototype.reportErrors = function (callback) {
+  var self = this;
   return function (err) {
     if (err) {
-      this.emit('error', err);
+      self.emit('error', err);
       return;
     }
 
