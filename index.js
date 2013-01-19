@@ -33,7 +33,7 @@ DropboxEngine.prototype.fetchFile = function(path, callback) {
   var self = this;
   this.auth(function() {
     self.client.onXhr.addListener(function(dbXhr) {
-      cbXhr.xhr.onprogress = function(e) {
+      dbXhr.xhr.onprogress = function(e) {
         var loaded = e.loaded, total = e.total;
         self.emit('progress', {
           loaded: loaded, total: total
