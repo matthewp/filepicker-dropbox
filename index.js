@@ -41,7 +41,7 @@ DropboxEngine.prototype.fetchFile = function(path, callback) {
       };
     });
 
-    self.client.readFile(path, self.reportErrors(function(data) {
+    self.client.readFile(path, {arrayBuffer: true},  self.reportErrors(function(data) {
      callback(data);
     }));
   });
